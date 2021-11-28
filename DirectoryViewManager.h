@@ -25,6 +25,8 @@ private:
 	bool error;
 	bool imageViewShow = false;
 
+	int maxVisibleDirectories = 3;
+
 	std::vector<DirectoryView> directoryViews;
 	std::vector<int> directoryViewSelections;
 

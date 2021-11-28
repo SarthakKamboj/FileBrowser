@@ -132,10 +132,38 @@ bool DirectoryViewManager::addChildDirectory() {
 void DirectoryViewManager::drawDirectories() {
 
 	if (directoryViews.size() == 0) return;
-	int directoryWidth = windowWidth / (directoryViews.size());
-	for (int i = 0; i < directoryViews.size(); i++) {
+
+	int startIdx = 0, endIdx = directoryViews.size() - 1;
+
+	if (directoryViews.size() > maxVisibleDirectories) {
+		if (activeDirectoryView == directoryViews.size() - 1) {
+			endIdx = directoryViews.size() - 1;
+			startIdx = endIdx - (maxVisibleDirectories - 1);
+		}
+		else if (activeDirectoryView < maxVisibleDirectories) {
+			startIdx = 0;
+			endIdx = maxVisibleDirectories - 1;
+		}
+		else {
+			endIdx = activeDirectoryView + 1;
+			startIdx = endIdx - (maxVisibleDirectories - 1);
+		}
+	}
+
+	int directoryWidth = windowWidth / fmin(maxVisibleDirectories, directoryViews.size());
+	// int directoryWidth = windowWidth / directoryViews.size();
+	// for (int i = 0; i < directoryViews.size(); i++) {
+	for (int i = startIdx; i < endIdx + 1; i++) {
+
+		int startX = (i - startIdx) * directoryWidth;
+		DirectoryView& curDirView = directoryViews[i];
+
+		curDirView.setWidth(directoryWidth);
+
+		int curSelection = directoryViewSelections[i];
+
 		if (i == activeDirectoryView) {
-			std::string path = directoryViews[i].getSelectionPath(directoryViewSelections[i]);
+			std::string path = curDirView.getSelectionPath(curSelection);
 			try {
 				fs::file_status status = fs::status(path);
 				fs::file_type f = status.type();
@@ -152,14 +180,14 @@ void DirectoryViewManager::drawDirectories() {
 					throw std::exception("not supported image file format");
 				}
 
-				directoryViews[i].draw(i * directoryWidth, 0, directoryViewSelections[i], false, f == fs::file_type::regular);
+				curDirView.draw(startX, 0, curSelection, false, f == fs::file_type::regular);
 			}
 			catch (const std::exception& exp) {
-				directoryViews[i].draw(i * directoryWidth, 0, directoryViewSelections[i], true, false);
+				curDirView.draw(startX, 0, curSelection, true, false);
 			}
 		}
 		else {
-			directoryViews[i].draw(i * directoryWidth, 0, -1, false, false);
+			curDirView.draw(startX, 0, -1, false, false);
 		}
 	}
 
