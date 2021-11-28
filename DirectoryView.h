@@ -46,6 +46,7 @@ private:
 	static SDL_Color dirDackgroundColor;
 	static SDL_Color errorBackgroundColor;
 	static SDL_Color fileBackgroundColor;
+	static int arrowFontSize;
 
 	int width;
 

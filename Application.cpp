@@ -1,6 +1,8 @@
 #include "Application.h"
 
 SDL_Renderer* Application::renderer = NULL;
+int Application::width = 0;
+int Application::height = 0;
 
 Application::Application() : window(NULL) {}
 
@@ -9,6 +11,8 @@ bool Application::init() {
 }
 
 void Application::createWindow(int windowWidth, int windowHeight) {
+	width = windowWidth;
+	height = windowHeight;
 	window = SDL_CreateWindow("window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, 0);
 }

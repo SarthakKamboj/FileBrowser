@@ -5,9 +5,8 @@ SDL_Color DirectoryViewManager::pathLabelColor = { 0, 0, 0, 255 };
 
 DirectoryViewManager::DirectoryViewManager(int inWindowWidth, int inWindowHeight, Input* inInput) : windowWidth(inWindowWidth),
 windowHeight(inWindowHeight),
-// renderer(inRenderer), 
 input(inInput), imageView(ImageView(Application::GetRenderer(), windowWidth * 0.75, windowHeight * 0.75)),
-pathLabelBackgroundTexture(BackgroundTexture(windowWidth, 30, pathLabelBckColor)),
+pathLabelBackgroundTexture(BackgroundTexture(pathLabelBckColor)),
 pathLabel(Label("SpaceMono", "", pathLabelColor))
 {
 	displayFileOrDirId = input->addCallback(SDLK_RETURN, std::bind(&DirectoryViewManager::displayFileOrDir, this));
@@ -152,8 +151,6 @@ void DirectoryViewManager::drawDirectories() {
 	}
 
 	int directoryWidth = windowWidth / fmin(maxVisibleDirectories, directoryViews.size());
-	// int directoryWidth = windowWidth / directoryViews.size();
-	// for (int i = 0; i < directoryViews.size(); i++) {
 	for (int i = startIdx; i < endIdx + 1; i++) {
 
 		int startX = (i - startIdx) * directoryWidth;
@@ -196,7 +193,9 @@ void DirectoryViewManager::drawDirectories() {
 		imageView.draw(windowWidth * 0.125, windowHeight * 0.125);
 	}
 
-	pathLabelBackgroundTexture.draw(0, 600 - 30);
-	pathLabel.draw(0, 600 - 30);
+	int pathLabelHeight = 30;
+	int pathLabelY = Application::height - pathLabelHeight;
+	pathLabelBackgroundTexture.draw(0, pathLabelY, Application::width, pathLabelHeight);
+	pathLabel.draw(3, pathLabelY + 2);
 
 }

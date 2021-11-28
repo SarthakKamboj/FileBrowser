@@ -5,12 +5,14 @@ SDL_Color DirectoryView::errorBackgroundColor = { 203, 3, 1, 255 };
 SDL_Color DirectoryView::fileBackgroundColor = { 38, 2, 53, 255 };
 SDL_Color DirectoryView::textColor = { 150, 150, 150, 255 };
 
+int DirectoryView::arrowFontSize = 9;
+
 DirectoryView::DirectoryView(std::string& inFontName, Input* inInput, int inWidth, bool inActive)
 	: fontName(inFontName),
-	dirViewBackgroundTexture(BackgroundTexture(150, 30, dirDackgroundColor)),
-	errorBackgroundTexture(BackgroundTexture(150, 30, errorBackgroundColor)),
-	arrow(Arrow(9)), width(inWidth),
-	fileViewBackgroundTexture(BackgroundTexture(150, 30, fileBackgroundColor)),
+	dirViewBackgroundTexture(BackgroundTexture(dirDackgroundColor)),
+	errorBackgroundTexture(BackgroundTexture(errorBackgroundColor)),
+	arrow(Arrow(arrowFontSize)), width(inWidth),
+	fileViewBackgroundTexture(BackgroundTexture(fileBackgroundColor)),
 	path(""), dirEmptyLabel(Label("SpaceMono", "Directory is empty", textColor))
 {
 
@@ -31,10 +33,9 @@ std::string DirectoryView::getSelectionPath(int selectionIdx) {
 }
 
 DirectoryView::DirectoryView(const DirectoryView& other) : fontName(other.fontName),
-// renderer(other.renderer),
-dirViewBackgroundTexture(BackgroundTexture(150, 30, other.dirDackgroundColor)),
-errorBackgroundTexture(BackgroundTexture(150, 30, other.errorBackgroundColor)),
-arrow(Arrow(9)), width(other.width),
+dirViewBackgroundTexture(BackgroundTexture(other.dirDackgroundColor)),
+errorBackgroundTexture(BackgroundTexture(other.errorBackgroundColor)),
+arrow(Arrow(arrowFontSize)), width(other.width),
 input(other.input), fileViewBackgroundTexture(other.fileViewBackgroundTexture), path(other.path),
 dirEmptyLabel(other.dirEmptyLabel)
 {
@@ -112,11 +113,11 @@ void DirectoryView::draw(int startX, int startY, int selectionIdx, bool error, b
 
 	if (curSelectionBottomY > bottomOfScreen) {
 		bottomOfScreen = curSelectionBottomY;
-		topOfScreen = bottomOfScreen - 600 + bottomPadding;
+		topOfScreen = bottomOfScreen - Application::height + bottomPadding;
 	}
 	else if (curSelectionTopY < topOfScreen) {
 		topOfScreen = curSelectionTopY;
-		bottomOfScreen = topOfScreen + 600 - bottomPadding;
+		bottomOfScreen = topOfScreen + Application::height - bottomPadding;
 	}
 
 	for (unsigned i = 0; i < labels.size(); i++) {

@@ -2,7 +2,7 @@
 
 Label::Label() : fontName("SpaceMono"), text("uninitialized label") {}
 
-Label::Label(std::string inFontName, std::string inText, SDL_Color inTextColor) : // renderer(inRenderer),
+Label::Label(std::string inFontName, std::string inText, SDL_Color inTextColor) :
 	fontName(inFontName), text(inText), textColor(inTextColor) {
 	createLabelTexture();
 }
@@ -78,7 +78,6 @@ int Label::getWidth() {
 }
 
 void Label::copy(const Label& other) {
-	// renderer = other.renderer;
 	boundary = other.boundary;
 	textColor = other.textColor;
 	createLabelTexture();

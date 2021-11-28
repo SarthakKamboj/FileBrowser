@@ -11,6 +11,7 @@ public:
 	void cleanUp();
 
 	static SDL_Renderer* GetRenderer();
+	static int width, height;
 
 private:
 	const int FPS = 60;
