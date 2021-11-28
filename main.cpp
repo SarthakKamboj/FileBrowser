@@ -19,7 +19,6 @@ int main(int argc, char* args[]) {
 
 	Application application;
 
-	// if (SDL_Init(SDL_INIT_EVERYTHING) != 0 || TTF_Init() == -1) {
 	if (!application.init()) {
 		return 1;
 	}
@@ -34,12 +33,6 @@ int main(int argc, char* args[]) {
 	int windowHeight = 600;
 
 	application.createWindow(windowWidth, windowHeight);
-	/*
-	SDL_Window* window = SDL_CreateWindow("Text Editor", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
-	*/
-
-	// SDL_Renderer* renderer = Application::GetRenderer();
 
 	std::string imgFilePath = "cpp.png";
 	SDL_Texture* imageTex = Util::loadImage(imgFilePath);
@@ -94,11 +87,6 @@ int main(int argc, char* args[]) {
 	}
 
 	application.cleanUp();
-	/*
-	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(renderer);
-	SDL_Quit();
-	*/
 
 	return 0;
 }
