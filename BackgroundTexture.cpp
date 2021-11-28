@@ -1,19 +1,21 @@
 #include "BackgroundTexture.h"
 
-BackgroundTexture::BackgroundTexture(SDL_Renderer* inRenderer, SDL_Color inColor) : renderer(inRenderer), color(inColor) {
+BackgroundTexture::BackgroundTexture(SDL_Color inColor) : color(inColor) {
 	width = 10;
 	height = 10;
 
 	createBackgroundTexture();
 }
 
-BackgroundTexture::BackgroundTexture(int inWidth, int inHeight, SDL_Renderer* inRenderer, SDL_Color inColor) : width(inWidth), height(inHeight), renderer(inRenderer), color(inColor) {
+BackgroundTexture::BackgroundTexture(int inWidth, int inHeight, SDL_Color inColor) : width(inWidth), height(inHeight), color(inColor) {
 	createBackgroundTexture();
 }
 
 void BackgroundTexture::createBackgroundTexture() {
 	Uint8 r, g, b, a;
-	SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
+	SDL_GetRenderDrawColor(Application::GetRenderer(), &r, &g, &b, &a);
+
+	SDL_Renderer* renderer = Application::GetRenderer();
 
 	SDL_Texture* prevTarget = SDL_GetRenderTarget(renderer);
 
@@ -35,7 +37,7 @@ void BackgroundTexture::draw(int xPos, int yPos) {
 	destRect.x = xPos;
 	destRect.y = yPos;
 
-	SDL_RenderCopy(renderer, backgroundTexture, NULL, &destRect);
+	SDL_RenderCopy(Application::GetRenderer(), backgroundTexture, NULL, &destRect);
 }
 
 void BackgroundTexture::draw(int xPos, int yPos, int inWidth, int inHeight) {
@@ -44,5 +46,5 @@ void BackgroundTexture::draw(int xPos, int yPos, int inWidth, int inHeight) {
 	destRect.w = inWidth;
 	destRect.h = inHeight;
 
-	SDL_RenderCopy(renderer, backgroundTexture, NULL, &destRect);
+	SDL_RenderCopy(Application::GetRenderer(), backgroundTexture, NULL, &destRect);
 }

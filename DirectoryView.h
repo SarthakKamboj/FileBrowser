@@ -11,11 +11,12 @@
 #include "Input.h"
 #include "Label.h"
 #include <functional>
+#include "Application.h"
 
 class DirectoryView {
 
 public:
-	DirectoryView(std::string& inFontName, SDL_Renderer* inRenderer, Input* input, int width, bool active);
+	DirectoryView(std::string& inFontName, Input* input, int width, bool active);
 	DirectoryView(const DirectoryView& other);
 	~DirectoryView();
 	void setPathToDisplay(std::string& path);
@@ -29,7 +30,6 @@ private:
 	std::vector<std::string> fileNames;
 	std::vector<Label> labels;
 	std::string fontName;
-	SDL_Renderer* renderer;
 	BackgroundTexture dirViewBackgroundTexture;
 	BackgroundTexture errorBackgroundTexture;
 	BackgroundTexture fileViewBackgroundTexture;

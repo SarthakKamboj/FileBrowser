@@ -2,8 +2,8 @@
 
 Label::Label() : fontName("SpaceMono"), text("uninitialized label") {}
 
-Label::Label(SDL_Renderer* inRenderer, std::string inFontName, std::string inText, SDL_Color inTextColor) : renderer(inRenderer),
-fontName(inFontName), text(inText), textColor(inTextColor) {
+Label::Label(std::string inFontName, std::string inText, SDL_Color inTextColor) : // renderer(inRenderer),
+	fontName(inFontName), text(inText), textColor(inTextColor) {
 	createLabelTexture();
 }
 
@@ -14,7 +14,7 @@ void Label::setText(std::string newText) {
 }
 
 void Label::createLabelTexture() {
-	labelTexture = Util::getText(renderer, fontName, text, textColor);
+	labelTexture = Util::getText(fontName, text, textColor);
 	SDL_QueryTexture(labelTexture, NULL, NULL, &boundary.w, &boundary.h);
 }
 
@@ -78,7 +78,7 @@ int Label::getWidth() {
 }
 
 void Label::copy(const Label& other) {
-	renderer = other.renderer;
+	// renderer = other.renderer;
 	boundary = other.boundary;
 	textColor = other.textColor;
 	createLabelTexture();
@@ -91,5 +91,5 @@ Label::~Label() {
 void Label::draw(int xPos, int yPos) {
 	boundary.x = xPos;
 	boundary.y = yPos;
-	SDL_RenderCopy(renderer, labelTexture, NULL, &boundary);
+	SDL_RenderCopy(Application::GetRenderer(), labelTexture, NULL, &boundary);
 }

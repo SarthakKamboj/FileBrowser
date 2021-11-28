@@ -5,14 +5,13 @@ SDL_Color DirectoryView::errorBackgroundColor = { 203, 3, 1, 255 };
 SDL_Color DirectoryView::fileBackgroundColor = { 38, 2, 53, 255 };
 SDL_Color DirectoryView::textColor = { 150, 150, 150, 255 };
 
-DirectoryView::DirectoryView(std::string& inFontName, SDL_Renderer* inRenderer, Input* inInput, int inWidth, bool inActive)
+DirectoryView::DirectoryView(std::string& inFontName, Input* inInput, int inWidth, bool inActive)
 	: fontName(inFontName),
-	renderer(inRenderer),
-	dirViewBackgroundTexture(BackgroundTexture(150, 30, inRenderer, dirDackgroundColor)),
-	errorBackgroundTexture(BackgroundTexture(150, 30, inRenderer, errorBackgroundColor)),
-	arrow(Arrow(inRenderer, 9)), width(inWidth),
-	fileViewBackgroundTexture(BackgroundTexture(150, 30, renderer, fileBackgroundColor)),
-	path(""), dirEmptyLabel(Label(renderer, "SpaceMono", "Directory is empty", textColor))
+	dirViewBackgroundTexture(BackgroundTexture(150, 30, dirDackgroundColor)),
+	errorBackgroundTexture(BackgroundTexture(150, 30, errorBackgroundColor)),
+	arrow(Arrow(9)), width(inWidth),
+	fileViewBackgroundTexture(BackgroundTexture(150, 30, fileBackgroundColor)),
+	path(""), dirEmptyLabel(Label("SpaceMono", "Directory is empty", textColor))
 {
 
 
@@ -32,10 +31,10 @@ std::string DirectoryView::getSelectionPath(int selectionIdx) {
 }
 
 DirectoryView::DirectoryView(const DirectoryView& other) : fontName(other.fontName),
-renderer(other.renderer),
-dirViewBackgroundTexture(BackgroundTexture(150, 30, other.renderer, other.dirDackgroundColor)),
-errorBackgroundTexture(BackgroundTexture(150, 30, other.renderer, other.errorBackgroundColor)),
-arrow(Arrow(other.renderer, 9)), width(other.width),
+// renderer(other.renderer),
+dirViewBackgroundTexture(BackgroundTexture(150, 30, other.dirDackgroundColor)),
+errorBackgroundTexture(BackgroundTexture(150, 30, other.errorBackgroundColor)),
+arrow(Arrow(9)), width(other.width),
 input(other.input), fileViewBackgroundTexture(other.fileViewBackgroundTexture), path(other.path),
 dirEmptyLabel(other.dirEmptyLabel)
 {
@@ -79,7 +78,7 @@ void DirectoryView::setPathToDisplay(std::string& inPath) {
 	labels.reserve(fileNames.size());
 	for (unsigned i = 0; i < fileNames.size(); i++) {
 		std::string& fileName = fileNames[i];
-		Label label(renderer, fontName, fileName, textColor);
+		Label label(fontName, fileName, textColor);
 		labels.push_back(label);
 	}
 }

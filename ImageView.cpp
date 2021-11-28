@@ -52,11 +52,11 @@ void ImageView::addBorderToTex() {
 
 void ImageView::setFile(std::string inPath) {
 	path = inPath;
-	SDL_Texture* imgTex = Util::loadImage(renderer, path);
+	SDL_Texture* imgTex = Util::loadImage(path);
 
-	SDL_Color prevColor = Util::getRenderDrawColor(renderer);
+	SDL_Color prevColor = Util::getRenderDrawColor();
 
-	SDL_Texture* prevTarget = SDL_GetRenderTarget(renderer);
+	SDL_Texture* prevTarget = SDL_GetRenderTarget(Application::GetRenderer());
 	SDL_SetRenderTarget(renderer, imgCanvasTex);
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -77,7 +77,7 @@ void ImageView::setFile(std::string inPath) {
 	SDL_SetRenderTarget(renderer, prevTarget);
 	SDL_DestroyTexture(imgTex);
 
-	Util::setRenderDrawColor(renderer, prevColor);
+	Util::setRenderDrawColor(prevColor);
 }
 
 void ImageView::draw(int x, int y) {

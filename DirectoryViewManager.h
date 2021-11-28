@@ -7,12 +7,13 @@
 #include "ImageView.h"
 #include "BackgroundTexture.h"
 #include "Util.h"
+#include "Application.h"
 
 namespace fs = std::filesystem;
 
 class DirectoryViewManager {
 public:
-	DirectoryViewManager(int inWindowWidth, int inWindowHeight, SDL_Renderer* inRenderer, Input* input);
+	DirectoryViewManager(int inWindowWidth, int inWindowHeight, Input* input);
 	~DirectoryViewManager();
 	bool addDirectoryView(std::string path);
 	void drawDirectories();
@@ -20,7 +21,6 @@ public:
 
 private:
 	int windowWidth, windowHeight;
-	SDL_Renderer* renderer;
 	Input* input;
 	bool error;
 	bool imageViewShow = false;

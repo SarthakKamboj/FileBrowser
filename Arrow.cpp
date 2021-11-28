@@ -1,9 +1,9 @@
 #include "Arrow.h"
 
-Arrow::Arrow(SDL_Renderer* inRenderer, int size) : renderer(inRenderer) {
+Arrow::Arrow(int size) {
 
 	std::string arrowPath = "arrow.png";
-	arrowTex = Util::loadImage(renderer, arrowPath);
+	arrowTex = Util::loadImage(arrowPath);
 	int arrowWidth, arrowHeight;
 	SDL_QueryTexture(arrowTex, NULL, NULL, &arrowWidth, &arrowHeight);
 
@@ -17,7 +17,7 @@ Arrow::Arrow(SDL_Renderer* inRenderer, int size) : renderer(inRenderer) {
 void Arrow::draw(int xPos, int yPos) {
 	arrowDestRect.x = xPos;
 	arrowDestRect.y = yPos;
-	SDL_RenderCopy(renderer, arrowTex, NULL, &arrowDestRect);
+	SDL_RenderCopy(Application::GetRenderer(), arrowTex, NULL, &arrowDestRect);
 }
 
 int Arrow::getWidth() {

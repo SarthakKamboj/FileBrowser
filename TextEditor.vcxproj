@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="BackgroundTexture.cpp" />
     <ClCompile Include="DirectoryViewManager.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="DirectoryView.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application.h" />
     <ClInclude Include="Arrow.h" />
     <ClInclude Include="BackgroundTexture.h" />
     <ClInclude Include="DirectoryViewManager.h" />

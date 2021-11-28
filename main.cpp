@@ -11,11 +11,16 @@
 #include "DirectoryView.h"
 #include "Input.h"
 #include "DirectoryViewManager.h"
+#include "Application.h"
 
 namespace fs = std::filesystem;
 
 int main(int argc, char* args[]) {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0 || TTF_Init() == -1) {
+
+	Application application;
+
+	// if (SDL_Init(SDL_INIT_EVERYTHING) != 0 || TTF_Init() == -1) {
+	if (!application.init()) {
 		return 1;
 	}
 
@@ -28,11 +33,16 @@ int main(int argc, char* args[]) {
 	int windowWidth = 800;
 	int windowHeight = 600;
 
+	application.createWindow(windowWidth, windowHeight);
+	/*
 	SDL_Window* window = SDL_CreateWindow("Text Editor", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+	*/
+
+	// SDL_Renderer* renderer = Application::GetRenderer();
 
 	std::string imgFilePath = "cpp.png";
-	SDL_Texture* imageTex = Util::loadImage(renderer, imgFilePath);
+	SDL_Texture* imageTex = Util::loadImage(imgFilePath);
 
 	bool running = true;
 	Input input(running);
@@ -54,17 +64,15 @@ int main(int argc, char* args[]) {
 	backgroundColor.b = 53;
 	backgroundColor.a = 255;
 
-	SDL_SetRenderDrawColor(renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+	SDL_SetRenderDrawColor(Application::GetRenderer(), backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 
 	std::string fontName = "SpaceMono";
 	std::string fontPath = "fonts/SpaceMono.ttf";
 	Util::addFont(fontName, fontPath, 16);
 
-	DirectoryViewManager directoryViewManager(windowWidth, windowHeight, renderer, &input);
+	DirectoryViewManager directoryViewManager(windowWidth, windowHeight, &input);
 	std::string path = "C:\\";
 	directoryViewManager.addDirectoryView(path);
-
-	BackgroundTexture background(64, 64, renderer, { 0, 255, 0 });
 
 	while (running) {
 
@@ -72,11 +80,11 @@ int main(int argc, char* args[]) {
 
 		frameStart = SDL_GetTicks();
 
-		SDL_RenderClear(renderer);
+		SDL_RenderClear(Application::GetRenderer());
 
 		directoryViewManager.drawDirectories();
 
-		SDL_RenderPresent(renderer);
+		SDL_RenderPresent(Application::GetRenderer());
 
 		frameTime = SDL_GetTicks() - frameStart;
 
@@ -85,9 +93,12 @@ int main(int argc, char* args[]) {
 		}
 	}
 
+	application.cleanUp();
+	/*
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
+	*/
 
 	return 0;
 }

@@ -2,9 +2,9 @@
 
 std::map<std::string, TTF_Font*> Util::fontMap;
 
-SDL_Texture* Util::loadImage(SDL_Renderer* renderer, std::string& path) {
+SDL_Texture* Util::loadImage(std::string& path) {
 	SDL_Surface* imgSurface = IMG_Load(path.c_str());
-	SDL_Texture* imgTex = SDL_CreateTextureFromSurface(renderer, imgSurface);
+	SDL_Texture* imgTex = SDL_CreateTextureFromSurface(Application::GetRenderer(), imgSurface);
 	SDL_FreeSurface(imgSurface);
 	return imgTex;
 }
@@ -32,15 +32,15 @@ bool Util::isTraversable(std::string path) {
 }
 
 
-SDL_Color Util::getRenderDrawColor(SDL_Renderer* renderer) {
+SDL_Color Util::getRenderDrawColor() {
 	SDL_Color col;
-	SDL_GetRenderDrawColor(renderer, &col.r, &col.g, &col.b, &col.a);
+	SDL_GetRenderDrawColor(Application::GetRenderer(), &col.r, &col.g, &col.b, &col.a);
 	return col;
 }
 
 
-void Util::setRenderDrawColor(SDL_Renderer* renderer, SDL_Color color) {
-	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+void Util::setRenderDrawColor(SDL_Color color) {
+	SDL_SetRenderDrawColor(Application::GetRenderer(), color.r, color.g, color.b, color.a);
 }
 
 SDL_Color Util::getTransparentColor() {
@@ -67,12 +67,12 @@ SDL_Color Util::getTransparentColor() {
 
 }
 
-SDL_Texture* Util::getText(SDL_Renderer* renderer, std::string fontName, std::string text, SDL_Color color) {
+SDL_Texture* Util::getText(std::string fontName, std::string text, SDL_Color color) {
 
 	TTF_Font* font = fontMap[fontName];
 	SDL_Surface* fontSurface = TTF_RenderText_Blended(font, text.c_str(), color);
 
-	SDL_Texture* fontTexture = SDL_CreateTextureFromSurface(renderer, fontSurface);
+	SDL_Texture* fontTexture = SDL_CreateTextureFromSurface(Application::GetRenderer(), fontSurface);
 	SDL_FreeSurface(fontSurface);
 
 	return fontTexture;

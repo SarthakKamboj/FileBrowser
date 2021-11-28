@@ -3,11 +3,12 @@
 SDL_Color DirectoryViewManager::pathLabelBckColor = { 117, 147, 14, 255 };
 SDL_Color DirectoryViewManager::pathLabelColor = { 0, 0, 0, 255 };
 
-DirectoryViewManager::DirectoryViewManager(int inWindowWidth, int inWindowHeight, SDL_Renderer* inRenderer, Input* inInput) : windowWidth(inWindowWidth),
+DirectoryViewManager::DirectoryViewManager(int inWindowWidth, int inWindowHeight, Input* inInput) : windowWidth(inWindowWidth),
 windowHeight(inWindowHeight),
-renderer(inRenderer), input(inInput), imageView(ImageView(inRenderer, windowWidth * 0.75, windowHeight * 0.75)),
-pathLabelBackgroundTexture(BackgroundTexture(windowWidth, 30, renderer, pathLabelBckColor)),
-pathLabel(Label(inRenderer, "SpaceMono", "", pathLabelColor))
+// renderer(inRenderer), 
+input(inInput), imageView(ImageView(Application::GetRenderer(), windowWidth * 0.75, windowHeight * 0.75)),
+pathLabelBackgroundTexture(BackgroundTexture(windowWidth, 30, pathLabelBckColor)),
+pathLabel(Label("SpaceMono", "", pathLabelColor))
 {
 	displayFileOrDirId = input->addCallback(SDLK_RETURN, std::bind(&DirectoryViewManager::displayFileOrDir, this));
 	activeDirectoryView = 0;
@@ -84,7 +85,7 @@ bool DirectoryViewManager::addDirectoryView(std::string path) {
 	int directoryWidth = windowWidth / (directoryViews.size() + 1);
 
 	std::string fontName = "SpaceMono";
-	DirectoryView directoryView(fontName, renderer, input, directoryWidth, true);
+	DirectoryView directoryView(fontName, input, directoryWidth, true);
 	try {
 		directoryView.setPathToDisplay(path);
 	}

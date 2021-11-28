@@ -5,6 +5,7 @@
 #include "SDL_image.h"
 #include "Util.h"
 #include <vector>
+#include "Application.h"
 
 class ImageView {
 public:
