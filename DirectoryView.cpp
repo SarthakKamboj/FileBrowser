@@ -6,14 +6,16 @@ SDL_Color DirectoryView::fileBackgroundColor = { 38, 2, 53, 255 };
 SDL_Color DirectoryView::textColor = { 150, 150, 150, 255 };
 
 int DirectoryView::arrowFontSize = 9;
+// int DirectoryView::directoryViewPaddingX = 4;
 
-DirectoryView::DirectoryView(std::string& inFontName, Input* inInput, int inWidth, bool inActive)
+DirectoryView::DirectoryView(std::string& inFontName, Input* inInput, int inWidth, bool inActive, int inDirectoryViewPaddingX)
 	: fontName(inFontName),
 	dirViewBackgroundTexture(BackgroundTexture(dirDackgroundColor)),
 	errorBackgroundTexture(BackgroundTexture(errorBackgroundColor)),
 	arrow(Arrow(arrowFontSize)), width(inWidth),
 	fileViewBackgroundTexture(BackgroundTexture(fileBackgroundColor)),
-	path(""), dirEmptyLabel(Label("SpaceMono", "Directory is empty", textColor))
+	path(""), dirEmptyLabel(Label("SpaceMono", "Directory is empty", textColor, inWidth)),
+	directoryViewPaddingX(inDirectoryViewPaddingX)
 {
 
 
@@ -37,7 +39,7 @@ dirViewBackgroundTexture(BackgroundTexture(other.dirDackgroundColor)),
 errorBackgroundTexture(BackgroundTexture(other.errorBackgroundColor)),
 arrow(Arrow(arrowFontSize)), width(other.width),
 input(other.input), fileViewBackgroundTexture(other.fileViewBackgroundTexture), path(other.path),
-dirEmptyLabel(other.dirEmptyLabel)
+dirEmptyLabel(other.dirEmptyLabel), directoryViewPaddingX(other.directoryViewPaddingX)
 {
 
 	fileNames.clear();
@@ -54,6 +56,12 @@ DirectoryView::~DirectoryView() {}
 
 void DirectoryView::setWidth(int newWidth) {
 	width = newWidth;
+	labelWidth = width - (2 * directoryViewPaddingX);
+
+	for (Label& label : labels) {
+		label.setMaxWidth(labelWidth);
+	}
+	dirEmptyLabel.setMaxWidth(labelWidth);
 }
 
 void DirectoryView::setPathToDisplay(std::string& inPath) {
@@ -79,7 +87,7 @@ void DirectoryView::setPathToDisplay(std::string& inPath) {
 	labels.reserve(fileNames.size());
 	for (unsigned i = 0; i < fileNames.size(); i++) {
 		std::string& fileName = fileNames[i];
-		Label label(fontName, fileName, textColor);
+		Label label(fontName, fileName, textColor, labelWidth);
 		labels.push_back(label);
 	}
 }
@@ -101,7 +109,7 @@ void DirectoryView::draw(int startX, int startY, int selectionIdx, bool error, b
 
 	int labelPaddingLeft = 5;
 	if (fileNames.size() == 0) {
-		dirEmptyLabel.draw(startX + labelPaddingLeft, startY);
+		dirEmptyLabel.draw(startX + labelPaddingLeft + directoryViewPaddingX, startY);
 		return;
 	}
 
@@ -128,7 +136,7 @@ void DirectoryView::draw(int startX, int startY, int selectionIdx, bool error, b
 			curSelectionTopY = runningHeight;
 			curSelectionBottomY = runningHeight + selectedLabel.getHeight();
 
-			int arrowX = startX + width - arrowPaddingLeft - arrow.getWidth();
+			int arrowX = startX + width - arrowPaddingLeft - arrow.getWidth() + directoryViewPaddingX;
 			int arrowY = runningHeight + ((selectedLabel.getHeight() - arrow.getHeight()) / 2.0f);
 
 			if (error) {
@@ -149,7 +157,7 @@ void DirectoryView::draw(int startX, int startY, int selectionIdx, bool error, b
 
 		if (labelBottomY > bottomOfScreen) break;
 		if (runningHeight >= topOfScreen) {
-			label.draw(startX + labelPaddingLeft, runningHeight - topOfScreen);
+			label.draw(startX + labelPaddingLeft + directoryViewPaddingX, runningHeight - topOfScreen);
 		}
 
 		runningHeight += label.getHeight();

@@ -7,7 +7,7 @@ DirectoryViewManager::DirectoryViewManager(int inWindowWidth, int inWindowHeight
 windowHeight(inWindowHeight),
 input(inInput), imageView(ImageView(Application::GetRenderer(), windowWidth * 0.75, windowHeight * 0.75)),
 pathLabelBackgroundTexture(BackgroundTexture(pathLabelBckColor)),
-pathLabel(Label("SpaceMono", "", pathLabelColor))
+pathLabel(Label("SpaceMono", "", pathLabelColor, windowWidth))
 {
 	displayFileOrDirId = input->addCallback(SDLK_RETURN, std::bind(&DirectoryViewManager::displayFileOrDir, this));
 	activeDirectoryView = 0;
@@ -84,7 +84,8 @@ bool DirectoryViewManager::addDirectoryView(std::string path) {
 	int directoryWidth = windowWidth / (directoryViews.size() + 1);
 
 	std::string fontName = "SpaceMono";
-	DirectoryView directoryView(fontName, input, directoryWidth, true);
+	int directoryPaddingXMultiplier = directoryViews.size() == 0 ? 0 : 1;
+	DirectoryView directoryView(fontName, input, directoryWidth, true, directoryPaddingXMultiplier * 5);
 	try {
 		directoryView.setPathToDisplay(path);
 	}

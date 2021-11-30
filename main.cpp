@@ -29,8 +29,8 @@ int main(int argc, char* args[]) {
 	uint32_t frameStart;
 	int frameTime = 0;
 
-	int windowWidth = 1600;
-	int windowHeight = 900;
+	int windowWidth = 1200;
+	int windowHeight = 675;
 
 	application.createWindow(windowWidth, windowHeight);
 

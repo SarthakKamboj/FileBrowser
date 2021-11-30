@@ -16,7 +16,7 @@
 class DirectoryView {
 
 public:
-	DirectoryView(std::string& inFontName, Input* input, int width, bool active);
+	DirectoryView(std::string& inFontName, Input* input, int width, bool active, int inDirectoryViewPaddingX);
 	DirectoryView(const DirectoryView& other);
 	~DirectoryView();
 	void setPathToDisplay(std::string& path);
@@ -39,7 +39,7 @@ private:
 	Label dirEmptyLabel;
 
 	static SDL_Color textColor;
-
+	int directoryViewPaddingX;
 
 	std::string path;
 
@@ -49,6 +49,7 @@ private:
 	static int arrowFontSize;
 
 	int width;
+	int labelWidth;
 
 	void cleanup();
 

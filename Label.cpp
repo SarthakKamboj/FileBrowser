@@ -2,8 +2,10 @@
 
 Label::Label() : fontName("SpaceMono"), text("uninitialized label") {}
 
-Label::Label(std::string inFontName, std::string inText, SDL_Color inTextColor) :
-	fontName(inFontName), text(inText), textColor(inTextColor) {
+Label::Label(std::string inFontName, std::string inText, SDL_Color inTextColor, int inMaxWidth) :
+	fontName(inFontName), text(inText), textColor(inTextColor), maxWidth(inMaxWidth) {
+	srcRect.x = 0;
+	srcRect.y = 0;
 	createLabelTexture();
 }
 
@@ -15,7 +17,21 @@ void Label::setText(std::string newText) {
 
 void Label::createLabelTexture() {
 	labelTexture = Util::getText(fontName, text, textColor);
-	SDL_QueryTexture(labelTexture, NULL, NULL, &boundary.w, &boundary.h);
+	updateRenderWidth();
+	// SDL_QueryTexture(labelTexture, NULL, NULL, &boundary.w, &boundary.h);
+
+}
+
+void Label::setMaxWidth(int newMaxWidth) {
+	maxWidth = newMaxWidth;
+	updateRenderWidth();
+}
+
+void Label::updateRenderWidth() {
+	SDL_QueryTexture(labelTexture, NULL, NULL, &textWidth, &boundary.h);
+	boundary.w = fmin(maxWidth, textWidth);
+	srcRect.w = boundary.w;
+	srcRect.h = boundary.h;
 }
 
 /*
@@ -80,6 +96,9 @@ int Label::getWidth() {
 void Label::copy(const Label& other) {
 	boundary = other.boundary;
 	textColor = other.textColor;
+	maxWidth = other.maxWidth;
+	srcRect.x = 0;
+	srcRect.y = 0;
 	createLabelTexture();
 }
 
@@ -90,5 +109,6 @@ Label::~Label() {
 void Label::draw(int xPos, int yPos) {
 	boundary.x = xPos;
 	boundary.y = yPos;
-	SDL_RenderCopy(Application::GetRenderer(), labelTexture, NULL, &boundary);
+	// SDL_RenderCopy(Application::GetRenderer(), labelTexture, NULL, &boundary);
+	SDL_RenderCopy(Application::GetRenderer(), labelTexture, &srcRect, &boundary);
 }
