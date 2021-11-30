@@ -64,7 +64,7 @@ int main(int argc, char* args[]) {
 	Util::addFont(fontName, fontPath, 16);
 
 	DirectoryViewManager directoryViewManager(windowWidth, windowHeight, &input);
-	std::string path = "C:\\";
+	std::string path = "C:\\Users\\kambo\\Downloads\\towerDefense";
 	directoryViewManager.addDirectoryView(path);
 
 	while (running) {
