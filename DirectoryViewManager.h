@@ -16,7 +16,8 @@ public:
 	DirectoryViewManager(int inWindowWidth, int inWindowHeight, Input* input);
 	~DirectoryViewManager();
 	bool addDirectoryView(std::string path);
-	void drawDirectories();
+	void render();
+	void update();
 	void updateActiveDirectoryView();
 
 private:

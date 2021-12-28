@@ -8,18 +8,18 @@
 
 class Input {
 
-	struct InputCallbackInfo {
-		uint32_t id;
-		std::function<void()> function;
+	struct InputState {
+		bool enter, w, a, s, d, up, right, left, down;
+		bool escape, leftCtrl, rightCtrl, equals, plus;
 	};
 
 public:
 	Input(bool& running);
-	uint32_t addCallback(SDL_KeyCode key, std::function<void()> func);
-	void removeCallback(SDL_KeyCode key, uint32_t id);
 	void update();
+	InputState inputPressed;
+
 private:
-	std::map < SDL_KeyCode, std::vector<InputCallbackInfo>> inputCallbacks;
+
 	bool& running;
-	uint32_t runningId;
+
 };

@@ -65,9 +65,9 @@ void ImageView::setFile(std::string inPath) {
 	SDL_Rect destRect;
 	SDL_QueryTexture(imgTex, NULL, NULL, &destRect.w, &destRect.h);
 
-	float scale = fmax(destRect.w / width, destRect.h / height) * 1.33;
-	destRect.w /= scale;
-	destRect.h /= scale;
+	scale = fmax(destRect.w / width, destRect.h / height);
+	destRect.w *= scale;
+	destRect.h *= scale;
 
 	destRect.x = (width - destRect.w) / 2;
 	destRect.y = (height - destRect.h) / 2;
@@ -80,7 +80,41 @@ void ImageView::setFile(std::string inPath) {
 	Util::setRenderDrawColor(prevColor);
 }
 
-void ImageView::draw(int x, int y) {
+void ImageView::setScale(float inScale) {
+	scale = inScale;
+	SDL_Texture* imgTex = Util::loadImage(path);
+
+	SDL_Color prevColor = Util::getRenderDrawColor();
+
+	SDL_Texture* prevTarget = SDL_GetRenderTarget(Application::GetRenderer());
+	SDL_SetRenderTarget(renderer, imgCanvasTex);
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderClear(renderer);
+
+	SDL_Rect destRect;
+	SDL_QueryTexture(imgTex, NULL, NULL, &destRect.w, &destRect.h);
+
+	destRect.w *= scale;
+	destRect.h *= scale;
+
+	destRect.x = (width - destRect.w) / 2;
+	destRect.y = (height - destRect.h) / 2;
+
+	SDL_RenderCopy(renderer, imgTex, NULL, &destRect);
+
+	SDL_SetRenderTarget(renderer, prevTarget);
+	SDL_DestroyTexture(imgTex);
+
+	Util::setRenderDrawColor(prevColor);
+}
+
+
+float ImageView::getScale() {
+	return scale;
+}
+
+void ImageView::render(int x, int y) {
 	SDL_Rect dest = { x, y, width, height };
 	SDL_RenderCopy(renderer, imgCanvasTex, NULL, &dest);
 }

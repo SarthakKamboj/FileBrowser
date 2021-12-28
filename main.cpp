@@ -71,11 +71,13 @@ int main(int argc, char* args[]) {
 
 		input.update();
 
+		directoryViewManager.update();
+
 		frameStart = SDL_GetTicks();
 
 		SDL_RenderClear(Application::GetRenderer());
 
-		directoryViewManager.drawDirectories();
+		directoryViewManager.render();
 
 		SDL_RenderPresent(Application::GetRenderer());
 

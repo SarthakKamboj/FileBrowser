@@ -9,29 +9,64 @@ input(inInput), imageView(ImageView(Application::GetRenderer(), windowWidth * 0.
 pathLabelBackgroundTexture(BackgroundTexture(pathLabelBckColor)),
 pathLabel(Label("SpaceMono", "", pathLabelColor, windowWidth))
 {
-	displayFileOrDirId = input->addCallback(SDLK_RETURN, std::bind(&DirectoryViewManager::displayFileOrDir, this));
+	// displayFileOrDirId = input->addCallback(SDLK_RETURN, std::bind(&DirectoryViewManager::displayFileOrDir, this));
 	activeDirectoryView = 0;
 
-	moveActiveDirLeftId = input->addCallback(SDLK_a, std::bind(&DirectoryViewManager::moveActiveDirLeft, this));
-	moveActiveDirRightId = input->addCallback(SDLK_d, std::bind(&DirectoryViewManager::moveActiveDirRight, this));
+	// moveActiveDirLeftId = input->addCallback(SDLK_a, std::bind(&DirectoryViewManager::moveActiveDirLeft, this));
+	// moveActiveDirRightId = input->addCallback(SDLK_d, std::bind(&DirectoryViewManager::moveActiveDirRight, this));
 
-	moveSelectionUpId = input->addCallback(SDLK_w, std::bind(&DirectoryViewManager::moveSelectionUp, this));
-	moveSelectionDownId = input->addCallback(SDLK_s, std::bind(&DirectoryViewManager::moveSelectionDown, this));
+	// moveSelectionUpId = input->addCallback(SDLK_w, std::bind(&DirectoryViewManager::moveSelectionUp, this));
+	// moveSelectionDownId = input->addCallback(SDLK_s, std::bind(&DirectoryViewManager::moveSelectionDown, this));
 
-	endImgViewId = input->addCallback(SDLK_ESCAPE, std::bind(&DirectoryViewManager::stopImageView, this));
+	// endImgViewId = input->addCallback(SDLK_ESCAPE, std::bind(&DirectoryViewManager::stopImageView, this));
 
 	error = false;
 }
 
 DirectoryViewManager::~DirectoryViewManager() {
+	/*
 	input->removeCallback(SDLK_RETURN, displayFileOrDirId);
 	input->removeCallback(SDLK_a, moveActiveDirLeftId);
 	input->removeCallback(SDLK_d, moveActiveDirRightId);
 	input->removeCallback(SDLK_s, moveSelectionDownId);
 	input->removeCallback(SDLK_w, moveSelectionUpId);
 	input->removeCallback(SDLK_ESCAPE, endImgViewId);
+	*/
 }
 
+
+void DirectoryViewManager::update() {
+
+	if (imageViewShow) {
+		if (input->inputPressed.leftCtrl) {
+			imageView.setScale(imageView.getScale() + 0.1f);
+		}
+		if (input->inputPressed.rightCtrl) {
+			imageView.setScale(imageView.getScale() - 0.1f);
+		}
+		return;
+	}
+
+	if (input->inputPressed.enter) {
+		displayFileOrDir();
+	}
+	if (input->inputPressed.a || input->inputPressed.left) {
+		moveActiveDirLeft();
+	}
+	if (input->inputPressed.d || input->inputPressed.right) {
+		moveActiveDirRight();
+	}
+	if (input->inputPressed.w || input->inputPressed.up) {
+		moveSelectionUp();
+	}
+	if (input->inputPressed.s || input->inputPressed.down) {
+		moveSelectionDown();
+	}
+	if (input->inputPressed.escape) {
+		stopImageView();
+	}
+
+}
 
 void DirectoryViewManager::moveActiveDirLeft() {
 	activeDirectoryView = fmax(activeDirectoryView - 1, 0);
@@ -130,7 +165,7 @@ bool DirectoryViewManager::addChildDirectory() {
 	return addDirectoryView(directoryViews[lastDirIdx].getSelectionPath(directoryViewSelections[lastDirIdx]));
 }
 
-void DirectoryViewManager::drawDirectories() {
+void DirectoryViewManager::render() {
 
 	if (directoryViews.size() == 0) return;
 
@@ -191,7 +226,7 @@ void DirectoryViewManager::drawDirectories() {
 	}
 
 	if (imageViewShow) {
-		imageView.draw(windowWidth * 0.125, windowHeight * 0.125);
+		imageView.render(windowWidth * 0.125, windowHeight * 0.125);
 	}
 
 	int pathLabelHeight = 30;

@@ -15,15 +15,22 @@ public:
 	~ImageView();
 
 	void setFile(std::string path);
-	void draw(int x, int y);
+	void setScale(float scale);
+
+	void render(int x, int y);
 
 	static bool isImage(std::string path);
+
+	float getScale();
+
 private:
 	SDL_Texture* imgCanvasTex;
 	SDL_Renderer* renderer;
 	int width, height;
 	std::string path;
 	static const std::vector<std::string> supportImgFormats;
+
+	float scale = 1.0f;
 
 	void addBorderToTex();
 };
