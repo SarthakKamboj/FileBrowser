@@ -5,35 +5,13 @@ SDL_Color DirectoryViewManager::pathLabelColor = { 0, 0, 0, 255 };
 
 DirectoryViewManager::DirectoryViewManager(int inWindowWidth, int inWindowHeight, Input* inInput) : windowWidth(inWindowWidth),
 windowHeight(inWindowHeight),
-input(inInput), imageView(ImageView(Application::GetRenderer(), windowWidth * 0.75, windowHeight * 0.75)),
+input(inInput), imageView(ImageView(windowWidth * 0.75, windowHeight * 0.75)),
 pathLabelBackgroundTexture(BackgroundTexture(pathLabelBckColor)),
 pathLabel(Label("SpaceMono", "", pathLabelColor, windowWidth))
 {
-	// displayFileOrDirId = input->addCallback(SDLK_RETURN, std::bind(&DirectoryViewManager::displayFileOrDir, this));
 	activeDirectoryView = 0;
-
-	// moveActiveDirLeftId = input->addCallback(SDLK_a, std::bind(&DirectoryViewManager::moveActiveDirLeft, this));
-	// moveActiveDirRightId = input->addCallback(SDLK_d, std::bind(&DirectoryViewManager::moveActiveDirRight, this));
-
-	// moveSelectionUpId = input->addCallback(SDLK_w, std::bind(&DirectoryViewManager::moveSelectionUp, this));
-	// moveSelectionDownId = input->addCallback(SDLK_s, std::bind(&DirectoryViewManager::moveSelectionDown, this));
-
-	// endImgViewId = input->addCallback(SDLK_ESCAPE, std::bind(&DirectoryViewManager::stopImageView, this));
-
 	error = false;
 }
-
-DirectoryViewManager::~DirectoryViewManager() {
-	/*
-	input->removeCallback(SDLK_RETURN, displayFileOrDirId);
-	input->removeCallback(SDLK_a, moveActiveDirLeftId);
-	input->removeCallback(SDLK_d, moveActiveDirRightId);
-	input->removeCallback(SDLK_s, moveSelectionDownId);
-	input->removeCallback(SDLK_w, moveSelectionUpId);
-	input->removeCallback(SDLK_ESCAPE, endImgViewId);
-	*/
-}
-
 
 void DirectoryViewManager::update() {
 
@@ -49,7 +27,6 @@ void DirectoryViewManager::update() {
 		float shiftVal = 10;
 
 		if (input->inputPressed.left || input->inputPressed.a) {
-
 			imageView.shiftImage(-shiftVal, 0.0);
 		}
 		if (input->inputPressed.right || input->inputPressed.d) {
@@ -57,7 +34,6 @@ void DirectoryViewManager::update() {
 		}
 
 		if (input->inputPressed.up || input->inputPressed.w) {
-
 			imageView.shiftImage(0, -shiftVal);
 		}
 		if (input->inputPressed.down || input->inputPressed.s) {

@@ -6,7 +6,6 @@ SDL_Color DirectoryView::fileBackgroundColor = { 38, 2, 53, 255 };
 SDL_Color DirectoryView::textColor = { 150, 150, 150, 255 };
 
 int DirectoryView::arrowFontSize = 9;
-// int DirectoryView::directoryViewPaddingX = 4;
 
 DirectoryView::DirectoryView(std::string& inFontName, Input* inInput, int inWidth, bool inActive, int inDirectoryViewPaddingX)
 	: fontName(inFontName),

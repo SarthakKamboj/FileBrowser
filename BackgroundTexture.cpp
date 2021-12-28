@@ -5,15 +5,15 @@ BackgroundTexture::BackgroundTexture(SDL_Color inColor) : color(inColor) {
 }
 
 void BackgroundTexture::createBackgroundTexture() {
-	Uint8 r, g, b, a;
-	SDL_GetRenderDrawColor(Application::GetRenderer(), &r, &g, &b, &a);
-
 	SDL_Renderer* renderer = Application::GetRenderer();
+
+	Uint8 r, g, b, a;
+	SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
 
 	SDL_Texture* prevTarget = SDL_GetRenderTarget(renderer);
 
-	int width = 10;
-	int height = 10;
+	int width = 1;
+	int height = 1;
 
 	backgroundTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
 	SDL_SetRenderTarget(renderer, backgroundTexture);

@@ -33,7 +33,6 @@ private:
 	std::string fontName;
 
 	int maxWidth;
-	int textWidth;
 
 	void copy(const Label& other);
 	void createLabelTexture();

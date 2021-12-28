@@ -14,7 +14,6 @@ namespace fs = std::filesystem;
 class DirectoryViewManager {
 public:
 	DirectoryViewManager(int inWindowWidth, int inWindowHeight, Input* input);
-	~DirectoryViewManager();
 	bool addDirectoryView(std::string path);
 	void render();
 	void update();

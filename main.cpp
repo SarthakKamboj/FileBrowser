@@ -24,32 +24,15 @@ int main(int argc, char* args[]) {
 	}
 
 	const int FPS = 60;
-	const int frameDelay = 1000 / 60;
-
-	uint32_t frameStart;
-	int frameTime = 0;
+	const int secPerFrame = 1000 / FPS;
 
 	int windowWidth = 1200;
 	int windowHeight = 675;
 
 	application.createWindow(windowWidth, windowHeight);
 
-	std::string imgFilePath = "cpp.png";
-	SDL_Texture* imageTex = Util::loadImage(imgFilePath);
-
 	bool running = true;
 	Input input(running);
-
-	SDL_Rect srcRect;
-	srcRect.x = 0;
-	srcRect.y = 0;
-	SDL_QueryTexture(imageTex, NULL, NULL, &srcRect.w, &srcRect.h);
-
-	SDL_Rect destRct;
-	destRct.x = 0;
-	destRct.y = 0;
-	destRct.w = srcRect.w / fmax(srcRect.w, srcRect.h) * 32;
-	destRct.h = srcRect.h / fmax(srcRect.w, srcRect.h) * 32;
 
 	SDL_Color backgroundColor;
 	backgroundColor.r = 2;
@@ -63,8 +46,8 @@ int main(int argc, char* args[]) {
 	std::string fontPath = "fonts/SpaceMono.ttf";
 	Util::addFont(fontName, fontPath, 16);
 
-	DirectoryViewManager directoryViewManager(windowWidth, windowHeight, &input);
 	std::string path = "C:\\Users\\kambo\\Downloads\\towerDefense";
+	DirectoryViewManager directoryViewManager(windowWidth, windowHeight, &input);
 	directoryViewManager.addDirectoryView(path);
 
 	while (running) {
@@ -73,7 +56,7 @@ int main(int argc, char* args[]) {
 
 		directoryViewManager.update();
 
-		frameStart = SDL_GetTicks();
+		uint32_t frameStart = SDL_GetTicks();
 
 		SDL_RenderClear(Application::GetRenderer());
 
@@ -81,10 +64,10 @@ int main(int argc, char* args[]) {
 
 		SDL_RenderPresent(Application::GetRenderer());
 
-		frameTime = SDL_GetTicks() - frameStart;
+		int curFrameDuration = SDL_GetTicks() - frameStart;
 
-		if (frameDelay > frameTime) {
-			SDL_Delay(frameDelay - frameTime);
+		if (secPerFrame > curFrameDuration) {
+			SDL_Delay(secPerFrame - curFrameDuration);
 		}
 	}
 
