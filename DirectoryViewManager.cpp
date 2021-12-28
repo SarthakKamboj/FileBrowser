@@ -38,12 +38,36 @@ DirectoryViewManager::~DirectoryViewManager() {
 void DirectoryViewManager::update() {
 
 	if (imageViewShow) {
+
 		if (input->inputPressed.leftCtrl) {
 			imageView.setScale(imageView.getScale() + 0.1f);
 		}
 		if (input->inputPressed.rightCtrl) {
 			imageView.setScale(imageView.getScale() - 0.1f);
 		}
+
+		float shiftVal = 10;
+
+		if (input->inputPressed.left || input->inputPressed.a) {
+
+			imageView.shiftImage(-shiftVal, 0.0);
+		}
+		if (input->inputPressed.right || input->inputPressed.d) {
+			imageView.shiftImage(shiftVal, 0.0);
+		}
+
+		if (input->inputPressed.up || input->inputPressed.w) {
+
+			imageView.shiftImage(0, -shiftVal);
+		}
+		if (input->inputPressed.down || input->inputPressed.s) {
+			imageView.shiftImage(0.0, shiftVal);
+		}
+
+		if (input->inputPressed.escape) {
+			stopImageView();
+		}
+
 		return;
 	}
 
@@ -62,9 +86,7 @@ void DirectoryViewManager::update() {
 	if (input->inputPressed.s || input->inputPressed.down) {
 		moveSelectionDown();
 	}
-	if (input->inputPressed.escape) {
-		stopImageView();
-	}
+
 
 }
 

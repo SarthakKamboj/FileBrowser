@@ -52,6 +52,10 @@ void ImageView::addBorderToTex() {
 
 void ImageView::setFile(std::string inPath) {
 	path = inPath;
+
+	offsetX = 0;
+	offsetY = 0;
+
 	SDL_Texture* imgTex = Util::loadImage(path);
 
 	SDL_Color prevColor = Util::getRenderDrawColor();
@@ -98,8 +102,8 @@ void ImageView::setScale(float inScale) {
 	destRect.w *= scale;
 	destRect.h *= scale;
 
-	destRect.x = (width - destRect.w) / 2;
-	destRect.y = (height - destRect.h) / 2;
+	destRect.x = ((width - destRect.w) / 2) + offsetX;
+	destRect.y = ((height - destRect.h) / 2) + offsetY;
 
 	SDL_RenderCopy(renderer, imgTex, NULL, &destRect);
 
@@ -109,6 +113,12 @@ void ImageView::setScale(float inScale) {
 	Util::setRenderDrawColor(prevColor);
 }
 
+
+void ImageView::shiftImage(float xShift, float yShift) {
+	offsetX += xShift;
+	offsetY += yShift;
+	setScale(scale);
+}
 
 float ImageView::getScale() {
 	return scale;

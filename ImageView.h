@@ -16,6 +16,7 @@ public:
 
 	void setFile(std::string path);
 	void setScale(float scale);
+	void shiftImage(float xShift, float yShift);
 
 	void render(int x, int y);
 
@@ -31,6 +32,7 @@ private:
 	static const std::vector<std::string> supportImgFormats;
 
 	float scale = 1.0f;
+	float offsetX = 0, offsetY = 0;
 
 	void addBorderToTex();
 };
