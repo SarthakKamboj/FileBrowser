@@ -2,122 +2,113 @@
 
 const std::vector<std::string> ImageView::supportImgFormats = { "png", "jpg", "jpeg", "PNG", "tiff", "webp" };
 
-ImageView::ImageView(SDL_Renderer* inRenderer, int inWidth, int inHeight) : renderer(inRenderer),
-width(inWidth), height(inHeight)
+ImageView::ImageView(int inCanvasWidth, int inCanvasHeight) : canvasWidth(inCanvasWidth), canvasHeight(inCanvasHeight)
 {
-	imgCanvasTex = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
-	addBorderToTex();
+	createCanvas(inCanvasWidth, inCanvasHeight);
 }
 
-ImageView::ImageView(const ImageView& other) : renderer(other.renderer), width(other.width),
-height(other.height)
+ImageView::ImageView(const ImageView& other) : canvasWidth(other.canvasWidth), canvasHeight(other.canvasHeight)
 {
-	imgCanvasTex = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
-	addBorderToTex();
+	createCanvas(other.canvasWidth, other.canvasHeight);
 }
+
 
 ImageView& ImageView::operator=(const ImageView& other) {
-	renderer = other.renderer;
-	width = other.width;
-	height = other.height;
-	imgCanvasTex = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
-	addBorderToTex();
+	createCanvas(other.canvasWidth, other.canvasHeight);
 	return *this;
 }
 
+
+void ImageView::createCanvas(float inWidth, float inHeight) {
+	canvasWidth = inWidth;
+	canvasHeight = inHeight;
+	canvasTex = SDL_CreateTexture(Application::GetRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, canvasWidth, canvasHeight);
+}
+
 ImageView::~ImageView() {
-	SDL_DestroyTexture(imgCanvasTex);
+	SDL_DestroyTexture(canvasTex);
 }
 
 void ImageView::addBorderToTex() {
+	SDL_Renderer* renderer = Application::GetRenderer();
+
 	SDL_Texture* prevTarget = SDL_GetRenderTarget(renderer);
 
 	SDL_Color prevRenderColor;
 	SDL_GetRenderDrawColor(renderer, &prevRenderColor.r, &prevRenderColor.g, &prevRenderColor.b, &prevRenderColor.a);
 
-	SDL_SetRenderTarget(renderer, imgCanvasTex);
+	SDL_SetRenderTarget(renderer, canvasTex);
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderDrawRect(renderer, NULL);
 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderDrawLine(renderer, 0, 0, width, 0);
-	SDL_RenderDrawLine(renderer, 0, 0, 0, height);
-	SDL_RenderDrawLine(renderer, width - 2, 0, width - 2, height);
-	SDL_RenderDrawLine(renderer, 0, height - 2, width, height - 2);
+	SDL_RenderDrawLine(renderer, 0, 0, canvasWidth, 0);
+	SDL_RenderDrawLine(renderer, 0, 0, 0, canvasHeight);
+	SDL_RenderDrawLine(renderer, canvasWidth - 2, 0, canvasWidth - 2, canvasHeight);
+	SDL_RenderDrawLine(renderer, 0, canvasHeight - 2, canvasWidth, canvasHeight - 2);
 
 	SDL_SetRenderDrawColor(renderer, prevRenderColor.r, prevRenderColor.g, prevRenderColor.b, prevRenderColor.a);
 	SDL_SetRenderTarget(renderer, prevTarget);
 }
 
 void ImageView::setFile(std::string inPath) {
+
+	if (origImageTex != NULL) {
+		SDL_DestroyTexture(origImageTex);
+	}
+
+	SDL_Renderer* renderer = Application::GetRenderer();
 	path = inPath;
 
 	offsetX = 0;
 	offsetY = 0;
 
-	SDL_Texture* imgTex = Util::loadImage(path);
+	origImageTex = Util::loadImage(path);
 
-	SDL_Color prevColor = Util::getRenderDrawColor();
+	SDL_QueryTexture(origImageTex, NULL, NULL, &origImage.w, &origImage.h);
+	scale = fmax(((float)canvasWidth) / origImage.w, ((float)canvasHeight) / origImage.h) * 0.75f;
 
-	SDL_Texture* prevTarget = SDL_GetRenderTarget(Application::GetRenderer());
-	SDL_SetRenderTarget(renderer, imgCanvasTex);
+	updateCanvasImage();
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
-
-	SDL_Rect destRect;
-	SDL_QueryTexture(imgTex, NULL, NULL, &destRect.w, &destRect.h);
-
-	scale = fmax(destRect.w / width, destRect.h / height);
-	destRect.w *= scale;
-	destRect.h *= scale;
-
-	destRect.x = (width - destRect.w) / 2;
-	destRect.y = (height - destRect.h) / 2;
-
-	SDL_RenderCopy(renderer, imgTex, NULL, &destRect);
-
-	SDL_SetRenderTarget(renderer, prevTarget);
-	SDL_DestroyTexture(imgTex);
-
-	Util::setRenderDrawColor(prevColor);
 }
 
 void ImageView::setScale(float inScale) {
+	SDL_Renderer* renderer = Application::GetRenderer();
 	scale = inScale;
-	SDL_Texture* imgTex = Util::loadImage(path);
 
-	SDL_Color prevColor = Util::getRenderDrawColor();
+	updateCanvasImage();
 
+}
+
+void ImageView::updateCanvasImage() {
+
+	SDL_Renderer* renderer = Application::GetRenderer();
+
+	SDL_Color prevRenderColor = Util::getRenderDrawColor();
 	SDL_Texture* prevTarget = SDL_GetRenderTarget(Application::GetRenderer());
-	SDL_SetRenderTarget(renderer, imgCanvasTex);
 
+	SDL_SetRenderTarget(renderer, canvasTex);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 
-	SDL_Rect destRect;
-	SDL_QueryTexture(imgTex, NULL, NULL, &destRect.w, &destRect.h);
+	SDL_Rect canvasMapping;
+	canvasMapping.w = origImage.w * scale;
+	canvasMapping.h = origImage.h * scale;
 
-	destRect.w *= scale;
-	destRect.h *= scale;
+	canvasMapping.x = ((canvasWidth - canvasMapping.w) / 2) + offsetX;
+	canvasMapping.y = ((canvasHeight - canvasMapping.h) / 2) + offsetY;
 
-	destRect.x = ((width - destRect.w) / 2) + offsetX;
-	destRect.y = ((height - destRect.h) / 2) + offsetY;
-
-	SDL_RenderCopy(renderer, imgTex, NULL, &destRect);
+	SDL_RenderCopy(renderer, origImageTex, NULL, &canvasMapping);
 
 	SDL_SetRenderTarget(renderer, prevTarget);
-	SDL_DestroyTexture(imgTex);
-
-	Util::setRenderDrawColor(prevColor);
+	SDL_SetRenderDrawColor(renderer, prevRenderColor.r, prevRenderColor.g, prevRenderColor.b, prevRenderColor.a);
 }
-
 
 void ImageView::shiftImage(float xShift, float yShift) {
 	offsetX += xShift;
 	offsetY += yShift;
-	setScale(scale);
+	updateCanvasImage();
 }
 
 float ImageView::getScale() {
@@ -125,8 +116,9 @@ float ImageView::getScale() {
 }
 
 void ImageView::render(int x, int y) {
-	SDL_Rect dest = { x, y, width, height };
-	SDL_RenderCopy(renderer, imgCanvasTex, NULL, &dest);
+	SDL_Renderer* renderer = Application::GetRenderer();
+	SDL_Rect dest = { x, y, canvasWidth, canvasHeight };
+	SDL_RenderCopy(renderer, canvasTex, NULL, &dest);
 }
 
 

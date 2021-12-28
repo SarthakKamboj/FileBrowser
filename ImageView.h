@@ -9,7 +9,7 @@
 
 class ImageView {
 public:
-	ImageView(SDL_Renderer* inRenderer, int width, int height);
+	ImageView(int canvasWidth, int canvasHeight);
 	ImageView(const ImageView& other);
 	ImageView& operator=(const ImageView& other);
 	~ImageView();
@@ -25,9 +25,11 @@ public:
 	float getScale();
 
 private:
-	SDL_Texture* imgCanvasTex;
-	SDL_Renderer* renderer;
-	int width, height;
+	SDL_Texture* canvasTex;
+	SDL_Rect origImage;
+	SDL_Texture* origImageTex;
+
+	int canvasWidth, canvasHeight;
 	std::string path;
 	static const std::vector<std::string> supportImgFormats;
 
@@ -35,4 +37,7 @@ private:
 	float offsetX = 0, offsetY = 0;
 
 	void addBorderToTex();
+
+	void createCanvas(float width, float height);
+	void updateCanvasImage();
 };
