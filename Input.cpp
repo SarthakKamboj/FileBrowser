@@ -1,11 +1,14 @@
 #include "Input.h"
 
-Input::Input(bool& inRunning) : running(inRunning) {}
+Input::Input(bool& inRunning) : running(inRunning) {
+	validToBePressed.setAllTrue();
+}
 
 void Input::update() {
 	SDL_Event event;
 	SDL_PollEvent(&event);
 
+	inputDown = {};
 	inputPressed = {};
 
 	switch (event.type) {
@@ -18,48 +21,158 @@ void Input::update() {
 
 		switch (keyCode) {
 		case SDLK_w:
-			inputPressed.w = true;
+			inputDown.w = true;
+			if (validToBePressed.w) {
+				inputPressed.w = true;
+				validToBePressed.w = false;
+			}
 			break;
 		case SDLK_a:
-			inputPressed.a = true;
+			inputDown.a = true;
+			if (validToBePressed.a) {
+				inputPressed.a = true;
+				validToBePressed.a = false;
+			}
 			break;
 		case SDLK_s:
-			inputPressed.s = true;
+			inputDown.s = true;
+			if (validToBePressed.s) {
+				inputPressed.s = true;
+				validToBePressed.s = false;
+			}
 			break;
 		case SDLK_d:
-			inputPressed.d = true;
+			inputDown.d = true;
+			if (validToBePressed.d) {
+				inputPressed.d = true;
+				validToBePressed.d = false;
+			}
 			break;
 		case SDLK_UP:
-			inputPressed.up = true;
+			inputDown.up = true;
+			if (validToBePressed.up) {
+				inputPressed.up = true;
+				validToBePressed.up = false;
+			}
 			break;
 		case SDLK_RIGHT:
-			inputPressed.right = true;
+			inputDown.right = true;
+			if (validToBePressed.right) {
+				inputPressed.right = true;
+				validToBePressed.right = false;
+			}
 			break;
 		case SDLK_LEFT:
-			inputPressed.left = true;
+			inputDown.left = true;
+			if (validToBePressed.left) {
+				inputPressed.left = true;
+				validToBePressed.left = false;
+			}
 			break;
 		case SDLK_DOWN:
-			inputPressed.down = true;
+			inputDown.down = true;
+			if (validToBePressed.down) {
+				inputPressed.down = true;
+				validToBePressed.down = false;
+			}
 			break;
 		case SDLK_RETURN:
-			inputPressed.enter = true;
+			inputDown.enter = true;
+			if (validToBePressed.enter) {
+				inputPressed.enter = true;
+				validToBePressed.enter = false;
+			}
 			break;
 		case SDLK_ESCAPE:
-			inputPressed.escape = true;
+			inputDown.escape = true;
+			if (validToBePressed.escape) {
+				inputPressed.escape = true;
+				validToBePressed.escape = false;
+			}
 			break;
 		case SDLK_LCTRL:
-			inputPressed.leftCtrl = true;
+			inputDown.leftCtrl = true;
+			if (validToBePressed.leftCtrl) {
+				inputPressed.leftCtrl = true;
+				validToBePressed.leftCtrl = false;
+			}
 			break;
 		case SDLK_RCTRL:
-			inputPressed.rightCtrl = true;
+			inputDown.rightCtrl = true;
+			if (validToBePressed.rightCtrl) {
+				inputPressed.rightCtrl = true;
+				validToBePressed.rightCtrl = false;
+			}
 			break;
 		case SDLK_PLUS:
-			inputPressed.plus = true;
+			inputDown.plus = true;
+			if (validToBePressed.plus) {
+				inputPressed.plus = true;
+				validToBePressed.plus = false;
+			}
 			break;
 		case SDLK_EQUALS:
-			inputPressed.equals = true;
+			inputDown.equals = true;
+			if (validToBePressed.equals) {
+				inputPressed.equals = true;
+				validToBePressed.equals = false;
+			}
 			break;
 		}
 	}
+					break;
+
+	case SDL_KEYUP: {
+
+		SDL_KeyCode keyCode = (SDL_KeyCode)event.key.keysym.sym;
+
+		switch (keyCode) {
+		case SDLK_w:
+			validToBePressed.w = true;
+			break;
+		case SDLK_a:
+			validToBePressed.a = true;
+			break;
+		case SDLK_s:
+			validToBePressed.s = true;
+			break;
+		case SDLK_d:
+			validToBePressed.d = true;
+			break;
+		case SDLK_UP:
+			validToBePressed.up = true;
+			break;
+		case SDLK_RIGHT:
+			validToBePressed.right = true;
+			break;
+		case SDLK_LEFT:
+			validToBePressed.left = true;
+			break;
+		case SDLK_DOWN:
+			validToBePressed.down = true;
+			break;
+		case SDLK_RETURN:
+			validToBePressed.enter = true;
+			break;
+		case SDLK_ESCAPE:
+			validToBePressed.escape = true;
+			break;
+		case SDLK_LCTRL:
+			validToBePressed.leftCtrl = true;
+			break;
+		case SDLK_RCTRL:
+			validToBePressed.rightCtrl = true;
+			break;
+		case SDLK_PLUS:
+			validToBePressed.plus = true;
+			break;
+		case SDLK_EQUALS:
+			validToBePressed.equals = true;
+			break;
+		}
+
+	}
+				  break;
+
 	}
 }

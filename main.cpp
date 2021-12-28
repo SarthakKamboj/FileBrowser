@@ -12,14 +12,26 @@
 #include "Input.h"
 #include "DirectoryViewManager.h"
 #include "Application.h"
+#include <iostream>
+#include <fstream>
 
 namespace fs = std::filesystem;
 
 int main(int argc, char* args[]) {
 
+	std::cout << "argc: " << argc << std::endl;
+	for (int i = 0; i < argc; i++) {
+		std::cout << "args[" << i << "]: " << args[i] << std::endl;
+	}
+
 	Application application;
 
 	if (!application.init()) {
+		std::cout << "failed initialization" << std::endl;
+		std::ofstream myfile;
+		myfile.open("init.txt");
+		myfile << "sdl init failed.\n";
+		myfile.close();
 		return 1;
 	}
 
@@ -46,13 +58,18 @@ int main(int argc, char* args[]) {
 	std::string fontPath = "fonts/SpaceMono.ttf";
 	Util::addFont(fontName, fontPath, 16);
 
-	std::string path = "C:\\Users\\kambo\\Downloads\\towerDefense";
+	std::string path = args[1];
 	DirectoryViewManager directoryViewManager(windowWidth, windowHeight, &input);
 	directoryViewManager.addDirectoryView(path);
 
 	while (running) {
 
 		input.update();
+
+		if (input.inputPressed.escape && !directoryViewManager.imageViewShow) {
+			running = false;
+			continue;
+		}
 
 		directoryViewManager.update();
 

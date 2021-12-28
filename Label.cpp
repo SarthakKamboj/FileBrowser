@@ -4,6 +4,7 @@ Label::Label() : fontName("SpaceMono"), text("uninitialized label") {}
 
 Label::Label(std::string inFontName, std::string inText, SDL_Color inTextColor, int inMaxWidth) :
 	fontName(inFontName), text(inText), textColor(inTextColor), maxWidth(inMaxWidth) {
+
 	srcRect.x = 0;
 	srcRect.y = 0;
 	createLabelTexture();

@@ -18,12 +18,12 @@ public:
 	void render();
 	void update();
 	void updateActiveDirectoryView();
+	bool imageViewShow = false;
 
 private:
 	int windowWidth, windowHeight;
 	Input* input;
 	bool error;
-	bool imageViewShow = false;
 
 	int maxVisibleDirectories = 3;
 

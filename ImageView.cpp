@@ -67,7 +67,7 @@ void ImageView::setFile(std::string inPath) {
 	origImageTex = Util::loadImage(path);
 
 	SDL_QueryTexture(origImageTex, NULL, NULL, &origImage.w, &origImage.h);
-	scale = fmax(((float)canvasWidth) / origImage.w, ((float)canvasHeight) / origImage.h) * 0.75f;
+	scale = fmin(((float)canvasWidth) / origImage.w, ((float)canvasHeight) / origImage.h) * 0.75f;
 
 	updateCanvasImage();
 
@@ -75,7 +75,7 @@ void ImageView::setFile(std::string inPath) {
 
 void ImageView::setScale(float inScale) {
 	SDL_Renderer* renderer = Application::GetRenderer();
-	scale = inScale;
+	scale = fmax(0, fmin(inScale, 10));
 
 	updateCanvasImage();
 

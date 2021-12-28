@@ -17,26 +17,26 @@ void DirectoryViewManager::update() {
 
 	if (imageViewShow) {
 
-		if (input->inputPressed.leftCtrl) {
+		if (input->inputDown.leftCtrl) {
 			imageView.setScale(imageView.getScale() + 0.1f);
 		}
-		if (input->inputPressed.rightCtrl) {
+		if (input->inputDown.rightCtrl) {
 			imageView.setScale(imageView.getScale() - 0.1f);
 		}
 
 		float shiftVal = 10;
 
-		if (input->inputPressed.left || input->inputPressed.a) {
+		if (input->inputDown.left || input->inputDown.a) {
 			imageView.shiftImage(-shiftVal, 0.0);
 		}
-		if (input->inputPressed.right || input->inputPressed.d) {
+		if (input->inputDown.right || input->inputDown.d) {
 			imageView.shiftImage(shiftVal, 0.0);
 		}
 
-		if (input->inputPressed.up || input->inputPressed.w) {
+		if (input->inputDown.up || input->inputDown.w) {
 			imageView.shiftImage(0, -shiftVal);
 		}
-		if (input->inputPressed.down || input->inputPressed.s) {
+		if (input->inputDown.down || input->inputDown.s) {
 			imageView.shiftImage(0.0, shiftVal);
 		}
 
@@ -50,16 +50,16 @@ void DirectoryViewManager::update() {
 	if (input->inputPressed.enter) {
 		displayFileOrDir();
 	}
-	if (input->inputPressed.a || input->inputPressed.left) {
+	if (input->inputDown.a || input->inputDown.left) {
 		moveActiveDirLeft();
 	}
-	if (input->inputPressed.d || input->inputPressed.right) {
+	if (input->inputDown.d || input->inputDown.right) {
 		moveActiveDirRight();
 	}
-	if (input->inputPressed.w || input->inputPressed.up) {
+	if (input->inputDown.w || input->inputDown.up) {
 		moveSelectionUp();
 	}
-	if (input->inputPressed.s || input->inputPressed.down) {
+	if (input->inputDown.s || input->inputDown.down) {
 		moveSelectionDown();
 	}
 
@@ -122,6 +122,9 @@ bool DirectoryViewManager::addDirectoryView(std::string path) {
 		directoryView.setPathToDisplay(path);
 	}
 	catch (const std::exception& e) {
+
+		std::cout << e.what() << std::endl;
+
 		int directoryWidth = windowWidth / directoryViews.size();
 		for (DirectoryView& directoryView : directoryViews) {
 			directoryView.setWidth(directoryWidth);

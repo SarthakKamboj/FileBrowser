@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include "Application.h"
+#include <iostream>
 
 class BackgroundTexture {
 public:

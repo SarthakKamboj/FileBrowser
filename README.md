@@ -28,16 +28,16 @@ C++
 ## Images
 
 <figcaption>Multiple directories open at once</figcaption>
-<img src="images/multiple_dirs_open.PNG">
+<img src="demo/multiple_dirs_open.PNG">
 
 <figcaption>Folder selected</figcaption>
-<img src="images/folder.PNG">
+<img src="demo/folder.PNG">
 
 <figcaption>Image selected</figcaption>
-<img src="images/img-selected.PNG">
+<img src="demo/img-selected.PNG">
 
 <figcaption>Image preview</figcaption>
-<img src="images/img_preview.PNG">
+<img src="demo/img_preview.PNG">
 
 <figcaption>File or folder not accessible</figcaption>
-<img src="images/error.PNG">
+<img src="demo/error.PNG">
