@@ -100,7 +100,7 @@ void ImageView::updateCanvasImage() {
 	canvasMapping.x = ((canvasWidth - canvasMapping.w) / 2) + offsetX;
 	canvasMapping.y = ((canvasHeight - canvasMapping.h) / 2) + offsetY;
 
-	// SDL_RenderCopy(renderer, origImageTex, NULL, &canvasMapping);
+	SDL_RenderCopy(renderer, origImageTex, NULL, &canvasMapping);
 
 	SDL_SetRenderTarget(renderer, prevTarget);
 	SDL_SetRenderDrawColor(renderer, prevRenderColor.r, prevRenderColor.g, prevRenderColor.b, prevRenderColor.a);

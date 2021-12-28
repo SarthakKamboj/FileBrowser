@@ -2,7 +2,7 @@
 
 Arrow::Arrow(int size) {
 
-	std::string arrowPath = "images/arrow.png";
+	std::string arrowPath = exeFolderPath + "\\" + "images\\arrow.png";
 	arrowTex = Util::loadImage(arrowPath);
 	int arrowWidth, arrowHeight;
 	SDL_QueryTexture(arrowTex, NULL, NULL, &arrowWidth, &arrowHeight);

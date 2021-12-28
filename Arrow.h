@@ -4,6 +4,8 @@
 #include "Util.h"
 #include "Application.h"
 
+extern std::string exeFolderPath;
+
 class Arrow {
 public:
 	Arrow(int size);

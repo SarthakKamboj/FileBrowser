@@ -17,12 +17,18 @@
 
 namespace fs = std::filesystem;
 
+std::string exeFolderPath;
+
 int main(int argc, char* args[]) {
 
 	std::cout << "argc: " << argc << std::endl;
 	for (int i = 0; i < argc; i++) {
 		std::cout << "args[" << i << "]: " << args[i] << std::endl;
 	}
+
+	std::string exeFilePath = args[0];
+	size_t lastSlash = exeFilePath.find_last_of("\\");
+	exeFolderPath = exeFilePath.substr(0, lastSlash);
 
 	Application application;
 
@@ -55,7 +61,7 @@ int main(int argc, char* args[]) {
 	SDL_SetRenderDrawColor(Application::GetRenderer(), backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 
 	std::string fontName = "SpaceMono";
-	std::string fontPath = "fonts/SpaceMono.ttf";
+	std::string fontPath = exeFolderPath + "\\" + "fonts\\SpaceMono.ttf";
 	Util::addFont(fontName, fontPath, 16);
 
 	std::string path = args[1];
