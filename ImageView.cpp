@@ -5,16 +5,19 @@ const std::vector<std::string> ImageView::supportImgFormats = { "png", "jpg", "j
 ImageView::ImageView(int inCanvasWidth, int inCanvasHeight) : canvasWidth(inCanvasWidth), canvasHeight(inCanvasHeight)
 {
 	createCanvas(inCanvasWidth, inCanvasHeight);
+	addBorderToTex();
 }
 
 ImageView::ImageView(const ImageView& other) : canvasWidth(other.canvasWidth), canvasHeight(other.canvasHeight)
 {
 	createCanvas(other.canvasWidth, other.canvasHeight);
+	addBorderToTex();
 }
 
 
 ImageView& ImageView::operator=(const ImageView& other) {
 	createCanvas(other.canvasWidth, other.canvasHeight);
+	addBorderToTex();
 	return *this;
 }
 
@@ -39,10 +42,8 @@ void ImageView::addBorderToTex() {
 
 	SDL_SetRenderTarget(renderer, canvasTex);
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderDrawRect(renderer, NULL);
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderDrawLine(renderer, 0, 0, canvasWidth, 0);
 	SDL_RenderDrawLine(renderer, 0, 0, 0, canvasHeight);
 	SDL_RenderDrawLine(renderer, canvasWidth - 2, 0, canvasWidth - 2, canvasHeight);
@@ -99,7 +100,7 @@ void ImageView::updateCanvasImage() {
 	canvasMapping.x = ((canvasWidth - canvasMapping.w) / 2) + offsetX;
 	canvasMapping.y = ((canvasHeight - canvasMapping.h) / 2) + offsetY;
 
-	SDL_RenderCopy(renderer, origImageTex, NULL, &canvasMapping);
+	// SDL_RenderCopy(renderer, origImageTex, NULL, &canvasMapping);
 
 	SDL_SetRenderTarget(renderer, prevTarget);
 	SDL_SetRenderDrawColor(renderer, prevRenderColor.r, prevRenderColor.g, prevRenderColor.b, prevRenderColor.a);
