@@ -212,14 +212,14 @@ void DirectoryViewManager::render() {
 					throw std::exception("not supported image file format");
 				}
 
-				curDirView.draw(startX, 0, curSelection, false, f == fs::file_type::regular);
+				curDirView.render(startX, 0, curSelection, false, f == fs::file_type::regular);
 			}
 			catch (const std::exception& exp) {
-				curDirView.draw(startX, 0, curSelection, true, false);
+				curDirView.render(startX, 0, curSelection, true, false);
 			}
 		}
 		else {
-			curDirView.draw(startX, 0, -1, false, false);
+			curDirView.render(startX, 0, -1, false, false);
 		}
 	}
 

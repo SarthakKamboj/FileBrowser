@@ -104,7 +104,7 @@ std::string DirectoryView::getPath() {
 	return path;
 }
 
-void DirectoryView::draw(int startX, int startY, int selectionIdx, bool error, bool viewingFile) {
+void DirectoryView::render(int startX, int startY, int selectionIdx, bool error, bool viewingFile) {
 
 	int labelPaddingLeft = 5;
 	if (fileNames.size() == 0) {

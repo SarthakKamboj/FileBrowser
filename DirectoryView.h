@@ -23,7 +23,7 @@ public:
 	std::string getSelectionPath(int selectionIdx);
 	std::string getPath();
 	void setWidth(int newWidth);
-	void draw(int startX, int startY, int selectionIdx, bool error, bool viewingFile);
+	void render(int startX, int startY, int selectionIdx, bool error, bool viewingFile);
 	int getNumFiles();
 
 private:
