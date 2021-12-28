@@ -63,7 +63,6 @@ void DirectoryViewManager::update() {
 		moveSelectionDown();
 	}
 
-
 }
 
 void DirectoryViewManager::moveActiveDirLeft() {
