@@ -14,6 +14,8 @@
 #include "Application.h"
 #include <iostream>
 #include <fstream>
+#include "Animation.h"
+#include "FlyThrough.h"
 
 namespace fs = std::filesystem;
 
@@ -26,9 +28,14 @@ int main(int argc, char* args[]) {
 		std::cout << "args[" << i << "]: " << args[i] << std::endl;
 	}
 
+#ifdef _DEBUG
+	exeFolderPath = "C:\\Sarthak\\TextEditor\\TextEditor";
+#else
 	std::string exeFilePath = args[0];
+	std::cout << exeFilePath << std::endl;
 	size_t lastSlash = exeFilePath.find_last_of("\\");
 	exeFolderPath = exeFilePath.substr(0, lastSlash);
+#endif
 
 	Application application;
 
@@ -61,16 +68,19 @@ int main(int argc, char* args[]) {
 	SDL_SetRenderDrawColor(Application::GetRenderer(), backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 
 	std::string fontName = "SpaceMono";
-	std::string fontPath = exeFolderPath + "\\" + "fonts\\SpaceMono.ttf";
+	std::string fontPath = exeFolderPath + "\\fonts\\SpaceMono.ttf";
 	Util::addFont(fontName, fontPath, 16);
 
 	std::string path = args[1];
 	DirectoryViewManager directoryViewManager(windowWidth, windowHeight, &input);
 	directoryViewManager.addDirectoryView(path);
 
+	FlyThrough flyThrough(&input);
+
 	while (running) {
 
 		input.update();
+		flyThrough.update();
 
 		if (input.inputPressed.escape && !directoryViewManager.imageViewShow) {
 			running = false;
@@ -84,6 +94,7 @@ int main(int argc, char* args[]) {
 		SDL_RenderClear(Application::GetRenderer());
 
 		directoryViewManager.render();
+		flyThrough.render();
 
 		SDL_RenderPresent(Application::GetRenderer());
 

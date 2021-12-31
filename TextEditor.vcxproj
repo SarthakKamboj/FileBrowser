@@ -165,10 +165,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="BackgroundTexture.cpp" />
+    <ClCompile Include="FlyThrough.cpp" />
     <ClCompile Include="DirectoryViewManager.cpp" />
+    <ClCompile Include="Flipbook.cpp" />
     <ClCompile Include="ImageView.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Label.cpp" />
@@ -177,10 +180,13 @@
     <ClCompile Include="DirectoryView.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Arrow.h" />
     <ClInclude Include="BackgroundTexture.h" />
+    <ClInclude Include="FlyThrough.h" />
     <ClInclude Include="DirectoryViewManager.h" />
+    <ClInclude Include="Flipbook.h" />
     <ClInclude Include="ImageView.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Label.h" />

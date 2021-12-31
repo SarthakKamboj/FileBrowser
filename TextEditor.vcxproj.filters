@@ -45,6 +45,15 @@
     <ClCompile Include="Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyThrough.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Flipbook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Util.h">
@@ -72,6 +81,15 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Application.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyThrough.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Flipbook.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,6 +11,7 @@ class Input {
 	struct InputState {
 		bool enter, w, a, s, d, up, right, left, down;
 		bool escape, leftCtrl, rightCtrl, equals, plus;
+		bool space;
 
 		void setAllTrue() {
 			enter = true;
@@ -27,6 +28,7 @@ class Input {
 			rightCtrl = true;
 			equals = true;
 			plus = true;
+			space = true;
 		}
 	};
 

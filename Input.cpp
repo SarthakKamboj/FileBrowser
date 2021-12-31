@@ -48,6 +48,13 @@ void Input::update() {
 				validToBePressed.d = false;
 			}
 			break;
+		case SDLK_SPACE:
+			inputDown.space = true;
+			if (validToBePressed.space) {
+				inputPressed.space = true;
+				validToBePressed.space = false;
+			}
+			break;
 		case SDLK_UP:
 			inputDown.up = true;
 			if (validToBePressed.up) {
@@ -147,6 +154,9 @@ void Input::update() {
 			break;
 		case SDLK_LEFT:
 			validToBePressed.left = true;
+			break;
+		case SDLK_SPACE:
+			validToBePressed.space = true;
 			break;
 		case SDLK_DOWN:
 			validToBePressed.down = true;
