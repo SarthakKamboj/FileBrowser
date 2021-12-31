@@ -16,6 +16,7 @@
 #include <fstream>
 #include "Animation.h"
 #include "FlyThrough.h"
+#include "SoundEffectManager.h"
 
 namespace fs = std::filesystem;
 
@@ -75,7 +76,11 @@ int main(int argc, char* args[]) {
 	DirectoryViewManager directoryViewManager(windowWidth, windowHeight, &input);
 	directoryViewManager.addDirectoryView(path);
 
-	FlyThrough flyThrough(&input);
+	SoundEffectManager soundEffectsManager;
+	// soundEffectsManager.addSoundEffect("test", exeFolderPath + "\\audio\\basketball.wav");
+	// soundEffectsManager.playSoundEffect("test");
+
+	FlyThrough flyThrough(&input, &soundEffectsManager);
 
 	while (running) {
 

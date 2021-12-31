@@ -73,24 +73,24 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\include;$(ProjectDir)ext\sdl2_mixer\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;$(ProjectDir)ext\sdl2_mixer\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\include;$(ProjectDir)ext\sdl2_mixer\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;$(ProjectDir)ext\sdl2_mixer\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\include;$(ProjectDir)ext\sdl2_mixer\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;$(ProjectDir)ext\sdl2_mixer\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\include;$(ProjectDir)ext\sdl2_mixer\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;$(ProjectDir)ext\sdl2_mixer\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -98,14 +98,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\lib\x86;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\include;$(ProjectDir)ext\sdl2_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;$(ProjectDir)ext\sdl2_mixer\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\lib\x86;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\include;$(ProjectDir)ext\sdl2_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -124,8 +124,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;$(ProjectDir)ext\sdl2_mixer\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -134,14 +134,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\lib\x86;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\include;$(ProjectDir)ext\sdl2_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;$(ProjectDir)ext\sdl2_mixer\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -152,7 +152,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\lib\x86;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)ext\sdl2\include;$(ProjectDir)ext\sdl2_image\include;$(ProjectDir)ext\sdl2_ttf\include;$(ProjectDir)ext\sdl2_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -160,8 +160,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)ext\sdl2\lib\x86;$(ProjectDir)ext\sdl2_image\lib\x86;$(ProjectDir)ext\sdl2_ttf\lib\x86;$(ProjectDir)ext\sdl2_mixer\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -176,6 +176,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SoundEffectManager.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="DirectoryView.cpp" />
   </ItemGroup>
@@ -190,6 +191,7 @@
     <ClInclude Include="ImageView.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="SoundEffectManager.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="DirectoryView.h" />
   </ItemGroup>
